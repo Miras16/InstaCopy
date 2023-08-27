@@ -1,9 +1,9 @@
 package com.example.InstaCopy.validations;
 
 import com.example.InstaCopy.annotations.ValidEmail;
+
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

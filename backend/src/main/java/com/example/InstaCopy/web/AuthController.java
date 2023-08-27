@@ -1,14 +1,13 @@
 package com.example.InstaCopy.web;
 
-import com.example.InstaCopy.payload.response.JWTTokenSuccessResponse;
-import com.example.InstaCopy.payload.response.MessageResponse;
-import com.example.InstaCopy.payload.response.request.LoginRequest;
-import com.example.InstaCopy.payload.response.request.SignupRequest;
+import com.example.InstaCopy.payload.reponse.JWTTokenSuccessResponse;
+import com.example.InstaCopy.payload.reponse.MessageResponse;
+import com.example.InstaCopy.payload.request.LoginRequest;
+import com.example.InstaCopy.payload.request.SignupRequest;
 import com.example.InstaCopy.security.JWTTokenProvider;
 import com.example.InstaCopy.security.SecurityConstants;
 import com.example.InstaCopy.service.UserService;
 import com.example.InstaCopy.validations.ResponseErrorValidation;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
 
 @CrossOrigin
 @RestController

@@ -16,17 +16,17 @@ export class TokenStorageService {
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
 
-  public getToken(): string | null {
-    return window.sessionStorage.getItem(TOKEN_KEY);
+  public getToken(): string {
+    return sessionStorage.getItem(TOKEN_KEY)!;
   }
 
   public saveUser(user: any): void {
+    window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
-  public getUser(): any | null {
-    const userString = window.sessionStorage.getItem(USER_KEY);
-    return userString ? JSON.parse(userString) : null;
+  public getUser(): any {
+    return JSON.parse(sessionStorage.getItem(USER_KEY)!);
   }
 
   logOut(): void {

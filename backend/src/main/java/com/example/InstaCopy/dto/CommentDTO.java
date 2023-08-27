@@ -1,7 +1,8 @@
 package com.example.InstaCopy.dto;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+
+import jakarta.validation.constraints.NotEmpty;
 
 @Data
 public class CommentDTO {
@@ -9,4 +10,5 @@ public class CommentDTO {
     @NotEmpty
     private String message;
     private String username;
+
 }

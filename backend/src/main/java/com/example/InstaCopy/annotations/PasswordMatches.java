@@ -1,11 +1,9 @@
 package com.example.InstaCopy.annotations;
 
-import java.lang.annotation.Target;
-
 import com.example.InstaCopy.validations.PasswordMatchesValidator;
+
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-
 import java.lang.annotation.*;
 
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})

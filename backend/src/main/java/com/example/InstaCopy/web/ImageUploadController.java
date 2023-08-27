@@ -1,8 +1,8 @@
 package com.example.InstaCopy.web;
 
 import com.example.InstaCopy.entity.ImageModel;
-import com.example.InstaCopy.payload.response.MessageResponse;
-import com.example.InstaCopy.service.ImageUploadService;
+import com.example.InstaCopy.payload.reponse.MessageResponse;
+import com.example.InstaCopy.services.ImageUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,34 +13,37 @@ import java.io.IOException;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/image")
+@RequestMapping("api/image")
 @CrossOrigin
 public class ImageUploadController {
+
     @Autowired
     private ImageUploadService imageUploadService;
 
     @PostMapping("/upload")
-    public ResponseEntity<MessageResponse> uploadImageToUser(@RequestParam("file")MultipartFile file, Principal principal) throws IOException {
+    public ResponseEntity<MessageResponse> uploadImageToUser(@RequestParam("file") MultipartFile file,
+                                                             Principal principal) throws IOException {
 
-        imageUploadService.uploadImageToUser(file,principal);
-        return ResponseEntity.ok(new MessageResponse("Image uploaded successfully"));
+        imageUploadService.uploadImageToUser(file, principal);
+        return ResponseEntity.ok(new MessageResponse("Image Uploaded Successfully"));
     }
 
-    @PostMapping("{postId}/upload")
+    @PostMapping("/{postId}/upload")
     public ResponseEntity<MessageResponse> uploadImageToPost(@PathVariable("postId") String postId,
                                                              @RequestParam("file") MultipartFile file,
-                                                             Principal principal) throws IOException{
+                                                             Principal principal) throws IOException {
         imageUploadService.uploadImageToPost(file, principal, Long.parseLong(postId));
-        return ResponseEntity.ok(new MessageResponse("Image uploaded successfully"));
+        return ResponseEntity.ok(new MessageResponse("Image Uploaded Successfully"));
     }
 
-    @GetMapping("/profile/image")
-    public ResponseEntity<ImageModel> getImageForUser(Principal principal){
+    @GetMapping("/profileImage")
+    public ResponseEntity<ImageModel> getImageForUser(Principal principal) {
         ImageModel userImage = imageUploadService.getImageToUser(principal);
         return new ResponseEntity<>(userImage, HttpStatus.OK);
     }
-    @GetMapping("{postId}/image")
-    public ResponseEntity<ImageModel> getImageForPost(@PathVariable("postId") String postId){
+
+    @GetMapping("/{postId}/image")
+    public ResponseEntity<ImageModel> getImageToPost(@PathVariable("postId") String postId) {
         ImageModel postImage = imageUploadService.getImageToPost(Long.parseLong(postId));
         return new ResponseEntity<>(postImage, HttpStatus.OK);
     }

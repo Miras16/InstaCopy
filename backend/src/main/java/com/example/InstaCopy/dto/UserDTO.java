@@ -1,10 +1,12 @@
 package com.example.InstaCopy.dto;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+
+import jakarta.validation.constraints.NotEmpty;
 
 @Data
 public class UserDTO {
+
     private Long id;
     @NotEmpty
     private String firstname;
@@ -12,4 +14,5 @@ public class UserDTO {
     private String lastname;
     private String username;
     private String bio;
+
 }

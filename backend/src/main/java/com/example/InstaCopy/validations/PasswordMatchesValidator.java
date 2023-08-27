@@ -1,7 +1,8 @@
 package com.example.InstaCopy.validations;
 
 import com.example.InstaCopy.annotations.PasswordMatches;
-import com.example.InstaCopy.payload.response.request.SignupRequest;
+import com.example.InstaCopy.payload.request.SignupRequest;
+
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -18,4 +19,3 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
         return userSignupRequest.getPassword().equals(userSignupRequest.getConfirmPassword());
     }
 }
-

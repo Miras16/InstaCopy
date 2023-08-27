@@ -1,11 +1,10 @@
 package com.example.InstaCopy.annotations;
 
 import com.example.InstaCopy.validations.EmailValidator;
+
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-
 import java.lang.annotation.*;
-
 
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)

@@ -2,17 +2,34 @@ package com.example.InstaCopy.entity;
 
 import com.example.InstaCopy.entity.enums.ERole;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Transient;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Entity
 @Data
-@Entity()
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,23 +45,28 @@ public class User implements UserDetails {
     private String bio;
     @Column(length = 3000)
     private String password;
+
     @ElementCollection(targetClass = ERole.class)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    private Set<ERole> role = new HashSet<>();
+    @CollectionTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"))
+    private Set<ERole> roles = new HashSet<>();
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
+
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     @Column(updatable = false)
     private LocalDateTime createdDate;
+
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
 
-    @PrePersist
-    protected void onCreate() {
-        this.createdDate = LocalDateTime.now();
-    }
 
-    public User(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public User(Long id,
+                String username,
+                String email,
+                String password,
+                Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -52,11 +74,19 @@ public class User implements UserDetails {
         this.authorities = authorities;
     }
 
-    public User() {
+    @PrePersist
+    protected void onCreate() {
+        this.createdDate = LocalDateTime.now();
     }
 
+    /**
+     * SECURITY
+     */
+
+
+
     @Override
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 
@@ -80,3 +110,4 @@ public class User implements UserDetails {
         return true;
     }
 }
+
